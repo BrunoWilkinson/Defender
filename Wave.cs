@@ -4,7 +4,10 @@ using System;
 public class Wave : Area2D
 {
     [Export]
-    private float speed = 40;
+    public float speed = 40;
+
+    [Export]
+    public PackedScene enemyScene;
 
     enum AIState
     {
@@ -35,6 +38,7 @@ public class Wave : Area2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        GenerateEnemies(9, 5, 128, 192);
         currentState = AIState.MOVE_RIGHT;
         // animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
@@ -54,5 +58,19 @@ public class Wave : Area2D
         }
 
         Position += velocity.Normalized() * speed * delta;
+    }
+
+    private void GenerateEnemies(int x, int y, int xOffset, int yOffset) {
+        Vector2 screenSize = GetViewportRect().Size;
+        Vector2 waveSize = new Vector2(screenSize.x - xOffset, screenSize.y - yOffset);
+        
+        for(int rows = 0; y > rows; rows++) {
+            for(int columns = 0; x > columns; columns++) {
+                var enemy = (Enemy)enemyScene.Instance();
+                enemy.Name = "Enemy" + rows + columns;
+                AddChild(enemy);
+            }
+        }
+        
     }
 }

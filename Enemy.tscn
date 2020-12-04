@@ -15,9 +15,9 @@ animations = [ {
 extents = Vector2( 32, 32 )
 
 [node name="Enemy" type="Area2D"]
-position = Vector2( 32, 32 )
+position = Vector2( 16, 16 )
+scale = Vector2( 0.521818, 0.535313 )
 script = ExtResource( 1 )
-speed = 150.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

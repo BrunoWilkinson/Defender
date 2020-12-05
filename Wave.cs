@@ -61,14 +61,19 @@ public class Wave : Area2D
     }
 
     private void GenerateEnemies(int x, int y, int xOffset, int yOffset) {
+        int waveNumber = x * y;
         Vector2 screenSize = GetViewportRect().Size;
         Vector2 waveSize = new Vector2(screenSize.x - xOffset, screenSize.y - yOffset);
-        
+        Enemy child = (Enemy)enemyScene.Instance();
+
+        for(int i = 0; waveNumber > i; i++) {
+            child.Name = "Enemy" + i;
+            AddChild(child);
+        }
+
         for(int rows = 0; y > rows; rows++) {
             for(int columns = 0; x > columns; columns++) {
-                var enemy = (Enemy)enemyScene.Instance();
-                enemy.Name = "Enemy" + rows + columns;
-                AddChild(enemy);
+                GD.Print("X: ", rows, "Y: ", columns);
             }
         }
         

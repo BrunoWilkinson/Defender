@@ -10,5 +10,3 @@ speed = 100.0
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 8 )
-[connection signal="leftWall" from="Walls" to="Wave" method="OnCollideLeft"]
-[connection signal="rightWall" from="Walls" to="Wave" method="OnCollideRight"]

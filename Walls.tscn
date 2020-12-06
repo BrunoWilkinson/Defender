@@ -12,14 +12,14 @@ __meta__ = {
 }
 
 [node name="Right" type="Area2D" parent="."]
-position = Vector2( 640, 320 )
+position = Vector2( 648, 320 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 z_index = 1
 shape = SubResource( 1 )
 
 [node name="Left" type="Area2D" parent="."]
-position = Vector2( 0, 320 )
+position = Vector2( -8, 320 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
 z_index = 1

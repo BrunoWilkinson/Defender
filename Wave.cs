@@ -34,8 +34,6 @@ public class Wave : Node2D
 
     public void OnCollideWall(Area2D area)
     {
-        GD.Print("COLLIDE WITH RIGHT WALL");
-        GD.Print(area.Name);
         if (area.Name == "Right") {
             currentState = AIState.MOVE_LEFT;
         } else if (area.Name == "Left") {
@@ -44,7 +42,6 @@ public class Wave : Node2D
         velocity = new Vector2(0, 1);
     }
 
-    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         GenerateEnemies(row, column, rowOffset, columnOffset);
@@ -52,7 +49,6 @@ public class Wave : Node2D
         // animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
 
-    //Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
         Movement(delta);

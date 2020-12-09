@@ -3,6 +3,9 @@ using System;
 
 public class Player : Area2D
 {
+    [Signal]
+    delegate void Shoot(PackedScene bullet, Vector2 location);
+
     [Export]
     public float speed = 1000;
 
@@ -10,9 +13,12 @@ public class Player : Area2D
     public float spriteSize = 32;
 
     [Export]
-    public PackedScene missile;
+    public float fireRate = 1;
 
-    public Vector2 screenSize;
+    Vector2 screenSize;
+    float currentTime;
+
+     private PackedScene _missile = GD.Load<PackedScene>("res://Missile.tscn");
 
     public override void _Ready()
     {
@@ -22,6 +28,7 @@ public class Player : Area2D
     public override void _Process(float delta)
     {
         Controls(delta);
+        Shot(delta);
     }
 
     private void Controls(float delta)
@@ -36,7 +43,6 @@ public class Player : Area2D
         {
             velocity.x -= 1;
         }
-
         Position += velocity * speed * delta;
         Position = new Vector2(
             x: Mathf.Clamp(Position.x, spriteSize, screenSize.x - spriteSize),
@@ -44,8 +50,12 @@ public class Player : Area2D
         );
     }
 
-    private void Shoot(float delta)
+    private void Shot(float delta)
     {
-
+        currentTime += delta;
+        if(Input.IsActionPressed("shot") && currentTime > fireRate) {
+            currentTime = 0;
+            EmitSignal(nameof(Shoot), _missile, Position);
+        }
     }
 }

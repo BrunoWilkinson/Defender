@@ -11,13 +11,11 @@ public class Walls : Node2D
 
     public void OnRight(Area2D area)
     {
-        GD.Print("WALL NODE: right wall hit ", area.GetPath());
         EmitSignal(nameof(rightWall));
     }
 
     public void OnLeft(Area2D area)
     {
-        GD.Print("WALL NODE: left wall hit ", area.GetPath());
         EmitSignal(nameof(leftWall));
     }
 

@@ -87,7 +87,6 @@ public class Wave : Node2D
                 Area2D enemyNode = GetNode<Area2D>(enemyName);
                 enemyNode.Connect("area_entered", this, nameof(OnCollideWall));
                 enemyNode.Position = new Vector2(gap * x, gap * y);
-                GD.Print(enemyNode.Position);
             }
         }
     }

@@ -4,7 +4,7 @@ using System;
 public class Player : Area2D
 {
     [Signal]
-    delegate void Shoot(PackedScene bullet, Vector2 location);
+    delegate void PressShoot(PackedScene bullet, Vector2 location);
 
     [Export]
     public float speed = 1000;
@@ -28,7 +28,7 @@ public class Player : Area2D
     public override void _Process(float delta)
     {
         Controls(delta);
-        Shot(delta);
+        Shoot(delta);
     }
 
     private void Controls(float delta)
@@ -50,12 +50,12 @@ public class Player : Area2D
         );
     }
 
-    private void Shot(float delta)
+    private void Shoot(float delta)
     {
         currentTime += delta;
-        if(Input.IsActionPressed("shot") && currentTime > fireRate) {
+        if(Input.IsActionPressed("shoot") && currentTime > fireRate) {
             currentTime = 0;
-            EmitSignal(nameof(Shoot), _missile, Position);
+            EmitSignal(nameof(PressShoot), _missile, Position);
         }
     }
 }

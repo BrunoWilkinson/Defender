@@ -18,7 +18,7 @@ public class Player : Area2D
     Vector2 screenSize;
     float currentTime;
 
-     private PackedScene _missile = GD.Load<PackedScene>("res://Missile.tscn");
+     private PackedScene _missile = GD.Load<PackedScene>("res://Scenes/Missile/Missile.tscn");
 
     public override void _Ready()
     {

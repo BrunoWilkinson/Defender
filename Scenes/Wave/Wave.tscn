@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Wave.cs" type="Script" id=1]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Wave/Wave.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Enemy/Enemy.tscn" type="PackedScene" id=2]
+
+
 
 [node name="Wave" type="Node2D"]
 position = Vector2( 64, 0 )

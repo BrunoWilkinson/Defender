@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Scenes/Walls/Walls.cs" type="Script" id=1]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 328 )
 
@@ -12,16 +11,16 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Right" type="Area2D" parent="."]
-position = Vector2( 648, 320 )
+[node name="Left" type="Area2D" parent="."]
+position = Vector2( 0, 320 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
 z_index = 1
 shape = SubResource( 1 )
 
-[node name="Left" type="Area2D" parent="."]
-position = Vector2( -8, 320 )
+[node name="Right" type="Area2D" parent="."]
+position = Vector2( 640, 320 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 z_index = 1
 shape = SubResource( 1 )

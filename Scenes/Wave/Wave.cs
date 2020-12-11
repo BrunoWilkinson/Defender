@@ -3,91 +3,83 @@ using System;
 
 public class Wave : Node2D
 {
-    [Export]
-    public float speed = 40;
+  [Export]
+  public float speed = 40;
 
-    [Export]
-    public PackedScene enemyScene;
-    [Export]
-    public int row = 5;
-    [Export]
-    public int column = 8;
+  enum MovementState
+  {
+    MOVE_RIGHT,
+    MOVE_LEFT,
+    MOVE_DOWN,
+    PASSIVE,
+  }
 
-    [Export]
-    public int rowOffset = 192;
-    [Export]
-    public int columnOffset = 128;
-    [Export]
-    public int gap = 16;
+  private AnimatedSprite animatedSprite;
+  private MovementState xState;
+  private MovementState yState;
+  private Vector2 velocity = Vector2.Zero;
 
-    enum AIState
+  public void OnCollideRightWall(Area2D area)
+  {
+    GD.Print("AREA NAME:", area.Name, "\n");
+    GD.Print("Before X:", xState, " Y:", yState, "\n");
+    xState = MovementState.MOVE_LEFT;
+    yState = MovementState.MOVE_DOWN;
+    GD.Print("After X:", xState, " Y:", yState, "\n");
+    GD.Print("--------------------------------------------\n");
+  }
+
+  public void OnCollideLeftWall(Area2D area)
+  {
+    GD.Print("AREA NAME:", area.Name, "\n");
+    GD.Print("Before X:", xState, " Y:", yState, "\n");
+    xState = MovementState.MOVE_RIGHT;
+    yState = MovementState.MOVE_DOWN;
+    GD.Print("After X:", xState, " Y:", yState, "\n");
+    GD.Print("--------------------------------------------\n");
+  }
+
+  public override void _Ready()
+  {
+    Node2D walls = GetNode<Node2D>("../Walls");
+    walls.Connect("rightWall", this, nameof(OnCollideRightWall));
+    walls.Connect("leftWall", this, nameof(OnCollideLeftWall));
+    xState = MovementState.MOVE_RIGHT;
+    yState = MovementState.PASSIVE;
+    // animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+  }
+
+  public override void _Process(float delta)
+  {
+    Movement(delta);
+  }
+
+  private void Movement(float delta)
+  {
+    Vector2 screenSize = GetViewport().Size;
+
+    if (xState == MovementState.MOVE_RIGHT && yState == MovementState.PASSIVE)
     {
-        MOVE_RIGHT,
-        MOVE_LEFT
+      velocity.x += 1;
+    }
+    else if (xState == MovementState.MOVE_LEFT && yState == MovementState.PASSIVE)
+    {
+      velocity.x -= 1;
+    }
+    else if (yState == MovementState.MOVE_DOWN)
+    {
+      velocity.y = 1;
+      yState = MovementState.PASSIVE;
+    }
+    else
+    {
+      velocity = Vector2.Zero;
     }
 
-    private Vector2 screenSize;
-    private AnimatedSprite animatedSprite;
-    private Vector2 startPosition;
-    private AIState currentState;
-    private Vector2 velocity = Vector2.Zero;
-
-    public void OnCollideWall(Area2D area)
-    {
-        if (area.Name == "Right") {
-            currentState = AIState.MOVE_LEFT;
-        } else if (area.Name == "Left") {
-            currentState = AIState.MOVE_RIGHT;
-        }
-        velocity = new Vector2(0, 1);
-    }
-
-    public override void _Ready()
-    {
-        GenerateEnemies(row, column, rowOffset, columnOffset);
-        currentState = AIState.MOVE_RIGHT;
-        // animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
-    }
-
-    public override void _Process(float delta)
-    {
-        Movement(delta);
-    }
-
-    private void Movement(float delta)
-    {
-        if (currentState == AIState.MOVE_RIGHT)
-        {
-            velocity.x += 1;
-        }
-        else
-        {
-            velocity.x -= 1;
-        }
-
-        Position += velocity.Normalized() * speed * delta;
-    }
-
-    private void GenerateEnemies(int rows, int columns, int yOffset, int xOffset)
-    {
-        Vector2 screenSize = GetViewportRect().Size;
-        Vector2 waveSize = new Vector2(screenSize.x - xOffset, screenSize.y - yOffset);
-        int counter = 0;
-
-        for (int y = 1; rows >= y; y++)
-        {
-            for (int x = 1; columns >= x; x++)
-            {
-                string enemyName = "Enemy";
-                AddChild((Enemy)enemyScene.Instance(), true);
-                counter++;
-                if (counter > 1) {
-                    enemyName += counter;
-                }
-                Area2D enemyNode = GetNode<Area2D>(enemyName);
-                enemyNode.Connect("area_entered", this, nameof(OnCollideWall));
-                enemyNode.Position = new Vector2(gap * x, gap * y);
-            }
-        }
-    }
+    Position += velocity.Normalized() * speed * delta;
+     Position = new Vector2(
+        x: Mathf.Clamp(Position.x, Position.x - 64, screenSize.x - 64),
+        y: Position.y
+    );
+  }
 }

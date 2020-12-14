@@ -14,8 +14,6 @@ public class Wave : Node2D
         MOVE_DOWN,
         PASSIVE,
     }
-
-    private AnimatedSprite animatedSprite;
     private MovementState xState;
     private MovementState yState;
     private Vector2 velocity = Vector2.Zero;
@@ -39,7 +37,6 @@ public class Wave : Node2D
         walls.Connect("leftWall", this, nameof(OnCollideLeftWall));
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.PASSIVE;
-        // animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
     }
 
     public override void _Process(float delta)

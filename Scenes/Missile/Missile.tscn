@@ -22,5 +22,6 @@ script = ExtResource( 1 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
+
+[node name="ScreenCheck" type="VisibilityNotifier2D" parent="."]

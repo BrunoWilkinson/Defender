@@ -3,14 +3,12 @@ using System;
 
 public class Enemy : Area2D
 {
-    [Signal]
-    public delegate void Hit();
-
-    [Signal]
-    public delegate void CollideWall();
-
-    public override void _Ready()
+    public void onHit(Area2D area) 
     {
-
+        if (area.Name == "Missile")
+        {
+            QueueFree();
+        }
+        
     }
 }

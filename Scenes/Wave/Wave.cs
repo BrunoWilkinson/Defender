@@ -4,7 +4,7 @@ using System;
 public class Wave : Node2D
 {
     [Export]
-    public float speed = 40;
+    public float speed = 5;
     [Export]
     public float drop = 5;
     enum MovementState

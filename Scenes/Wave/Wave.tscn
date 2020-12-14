@@ -4,11 +4,15 @@
 [ext_resource path="res://Scenes/Enemy/Enemy.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 256, 184 )
+extents = Vector2( 240, 184 )
 
 [node name="Wave" type="Area2D"]
 position = Vector2( 320, 208 )
 script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 6.10352e-05, 0 )
+shape = SubResource( 1 )
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( -224, -160 )
@@ -177,7 +181,3 @@ position = Vector2( 160, 160 )
 
 [node name="Enemy56" parent="." instance=ExtResource( 2 )]
 position = Vector2( 224, 160 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 4.57764e-05, 0 )
-shape = SubResource( 1 )

@@ -13,7 +13,7 @@ public class Main : Node2D
         Missile missileInstance = (Missile)missile.Instance();
         AddChild(missileInstance);
         missileInstance.Position = location;
-        missileInstance.Velocity.y = -1; 
+        missileInstance.Velocity.y = -1;
     }
 
 }

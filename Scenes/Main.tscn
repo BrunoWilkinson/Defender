@@ -9,9 +9,10 @@
 script = ExtResource( 4 )
 
 [node name="Wave" parent="." instance=ExtResource( 1 )]
-speed = 100.0
+speedUpBy = 5.0
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 8 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+fireRate = 0.5

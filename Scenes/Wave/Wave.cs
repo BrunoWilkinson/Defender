@@ -7,6 +7,8 @@ public class Wave : Node2D
     public float speed = 5;
     [Export]
     public float drop = 5;
+    [Export]
+    public float speedUpBy = 5;
     enum MovementState
     {
         MOVE_RIGHT,
@@ -37,6 +39,18 @@ public class Wave : Node2D
         walls.Connect("leftWall", this, nameof(OnCollideLeftWall));
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.PASSIVE;
+        foreach (Node child in GetChildren())
+        {
+            if (child.GetType().ToString() == "Enemy")
+            {
+                child.Connect("onDestroy", this, nameof(speedUp));
+            }
+        }
+    }
+
+    public void speedUp()
+    {
+        speed += speedUpBy;
     }
 
     public override void _Process(float delta)

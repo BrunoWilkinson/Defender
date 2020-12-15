@@ -3,6 +3,8 @@ using System;
 
 public class Enemy : Area2D
 {
+    [Signal]
+    public delegate void onDestroy();
     public override void _Ready()
     {
         Connect("area_entered", this, nameof(onHit));
@@ -13,6 +15,7 @@ public class Enemy : Area2D
         {
             QueueFree();
             area.QueueFree();
+            EmitSignal(nameof(onDestroy));
         }
     }
 }

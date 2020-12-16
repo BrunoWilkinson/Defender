@@ -11,7 +11,7 @@ public class Walls : Node2D
 
     public void OnRight(Area2D area)
     {
-        if (area.Name == "Wave")
+        if (area.GetType().ToString() == "Enemy")
         {
             EmitSignal(nameof(rightWall), area);
         }
@@ -20,7 +20,7 @@ public class Walls : Node2D
 
     public void OnLeft(Area2D area)
     {
-        if (area.Name == "Wave")
+        if (area.GetType().ToString() == "Enemy")
         {
             EmitSignal(nameof(leftWall), area);
         }

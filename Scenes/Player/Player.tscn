@@ -17,6 +17,7 @@ extents = Vector2( 32, 32 )
 [node name="Player" type="Area2D"]
 position = Vector2( 320, 552 )
 scale = Vector2( 0.76, 0.76 )
+z_index = 1
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

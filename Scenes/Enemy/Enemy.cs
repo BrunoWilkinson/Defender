@@ -19,8 +19,7 @@ public class Enemy : Area2D
     }
     public void shoot()
     {
-        GD.Print(Position.y);
-        EmitSignal(nameof(onShoot), _rock, Position);
+        EmitSignal(nameof(onShoot), _rock, GlobalPosition);
     }
     public override void _Ready()
     {

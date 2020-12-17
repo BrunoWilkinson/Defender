@@ -18,7 +18,6 @@ extents = Vector2( 32, 32 )
 position = Vector2( 320, 552 )
 scale = Vector2( 0.76, 0.76 )
 script = ExtResource( 2 )
-speed = 500.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

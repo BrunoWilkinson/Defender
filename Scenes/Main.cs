@@ -3,10 +3,12 @@ using System;
 
 public class Main : Node2D
 {
+    private Node2D _wave;
     public override void _Ready()
     {
         GetNode<Area2D>("Player").Connect("PressShoot", this, nameof(OnPlayerShoot));
-        foreach (Node child in GetNode<Node2D>("Wave").GetChildren())
+        _wave = GetNode<Node2D>("Wave");
+        foreach (Node child in _wave.GetChildren())
         {
             if (child.GetType().ToString() == "Enemy")
             {
@@ -23,11 +25,15 @@ public class Main : Node2D
         missileInstance.Velocity.y = -1;
     }
 
-    public void OnEnemyShoot(PackedScene rock, Vector2 location)
+    public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
     {
-        Rock rockInstance = (Rock)rock.Instance();
-        AddChild(rockInstance);
-        rockInstance.Position = location;
-        rockInstance.Velocity.y = 1;
+        int randomEnemy = (int)Math.Ceiling(GD.RandRange(0, _wave.GetChildCount() - 1));
+        if (enemy.GetIndex() == randomEnemy)
+        {
+            Rock rockInstance = (Rock)rock.Instance();
+            AddChild(rockInstance);
+            rockInstance.Position = location;
+            rockInstance.Velocity.y = 1;
+        }
     }
 }

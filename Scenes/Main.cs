@@ -27,7 +27,7 @@ public class Main : Node2D
 
     public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
     {
-        int randomEnemy = (int)Math.Ceiling(GD.RandRange(0, _wave.GetChildCount() - 1));
+        uint randomEnemy = (uint)Math.Ceiling(GD.RandRange(0, _wave.GetChildCount() - 1));
         if (enemy.GetIndex() == randomEnemy)
         {
             Rock rockInstance = (Rock)rock.Instance();

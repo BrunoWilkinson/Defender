@@ -7,7 +7,7 @@ public class Player : Area2D
       delegate void PressShoot(PackedScene bullet, Vector2 location);
 
       [Export]
-      public float speed = 1000;
+      public float speed = 500;
 
       [Export]
       public float spriteSize = 32;

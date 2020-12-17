@@ -16,4 +16,5 @@ drop = 10.0
 position = Vector2( 0, 8 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+speed = 500.0
 fireRate = 0.5

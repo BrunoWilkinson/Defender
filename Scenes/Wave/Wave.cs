@@ -50,7 +50,11 @@ public class Wave : Node2D
 
     public void speedUp()
     {
-        speed += speedUpBy;
+        if (GetChildCount() == 2) {
+            speed *= 2;
+        } else {
+            speed += speedUpBy;
+        }  
     }
 
     public override void _Process(float delta)

@@ -9,6 +9,8 @@
 script = ExtResource( 4 )
 
 [node name="Wave" parent="." instance=ExtResource( 1 )]
+speed = 5.0
+drop = 10.0
 
 [node name="Walls" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 8 )

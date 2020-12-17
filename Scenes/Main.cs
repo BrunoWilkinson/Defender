@@ -23,11 +23,11 @@ public class Main : Node2D
         missileInstance.Velocity.y = -1;
     }
 
-    public void OnEnemyShoot(PackedScene missile, Vector2 location)
+    public void OnEnemyShoot(PackedScene rock, Vector2 location)
     {
-        Missile missileInstance = (Missile)missile.Instance();
-        AddChild(missileInstance);
-        missileInstance.Position = location;
-        missileInstance.Velocity.y = 1;
+        Rock rockInstance = (Rock)rock.Instance();
+        AddChild(rockInstance);
+        rockInstance.Position = location;
+        rockInstance.Velocity.y = 1;
     }
 }

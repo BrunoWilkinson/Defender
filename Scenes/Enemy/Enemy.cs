@@ -7,7 +7,7 @@ public class Enemy : Area2D
     public delegate void onDestroy();
     [Signal]
     delegate void onShoot(PackedScene bullet, Vector2 location);
-    private PackedScene _missile = GD.Load<PackedScene>("res://Scenes/Missile/Missile.tscn");
+    private PackedScene _rock = GD.Load<PackedScene>("res://Scenes/Rock/Rock.tscn");
     public void onHit(Area2D area)
     {
         if (area.GetType().ToString() == "Missile")
@@ -20,7 +20,7 @@ public class Enemy : Area2D
     public void shoot()
     {
         GD.Print(Position.y);
-        EmitSignal(nameof(onShoot), _missile, Position);
+        EmitSignal(nameof(onShoot), _rock, Position);
     }
     public override void _Ready()
     {

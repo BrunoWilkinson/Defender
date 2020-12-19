@@ -22,12 +22,12 @@ public class Player : Area2D
 
     public void onHit(Area2D area)
     {
-      String type = area.GetType().ToString();
-      if (type == "Enemy" || type == "Rock")
-      {
-        Hide();
-        area.QueueFree();
-      }
+        String type = area.GetType().ToString();
+        if (type == "Enemy" || type == "Rock")
+        {
+            Hide();
+            area.QueueFree();
+        }
     }
 
     public override void _Ready()
@@ -68,6 +68,14 @@ public class Player : Area2D
         {
             currentTime = 0;
             EmitSignal(nameof(PressShoot), _missile, Position);
+        }
+    }
+
+    private void Block(float detla)
+    {
+        if (Input.IsActionPressed("block"))
+        {
+            // blocking logic
         }
     }
 }

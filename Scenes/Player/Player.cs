@@ -20,6 +20,8 @@ public class Player : Area2D
 
     private PackedScene _missile = GD.Load<PackedScene>("res://Scenes/Missile/Missile.tscn");
 
+    private Area2D _shield;
+
     public void onHit(Area2D area)
     {
         String type = area.GetType().ToString();
@@ -33,13 +35,17 @@ public class Player : Area2D
     public override void _Ready()
     {
         screenSize = GetViewport().Size;
+        _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(onHit));
+        _shield.Hide();
+        _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
     }
 
     public override void _Process(float delta)
     {
         Controls(delta);
         Shoot(delta);
+        Block(delta);
     }
 
     private void Controls(float delta)
@@ -64,7 +70,7 @@ public class Player : Area2D
     private void Shoot(float delta)
     {
         currentTime += delta;
-        if (Input.IsActionPressed("shoot") && currentTime > fireRate)
+        if (Input.IsActionPressed("shoot") && currentTime > fireRate && !Input.IsActionPressed("block"))
         {
             currentTime = 0;
             EmitSignal(nameof(PressShoot), _missile, Position);
@@ -75,7 +81,13 @@ public class Player : Area2D
     {
         if (Input.IsActionPressed("block"))
         {
-            // blocking logic
+            _shield.Show();
+            _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
+        }
+        else
+        {
+            _shield.Hide();
+            _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
         }
     }
 }

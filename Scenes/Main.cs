@@ -15,6 +15,7 @@ public class Main : Node2D
                 child.Connect("onShoot", this, nameof(OnEnemyShoot));
             }
         }
+        base._Ready();
     }
 
     public void OnPlayerShoot(PackedScene missile, Vector2 location)

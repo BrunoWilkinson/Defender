@@ -4,7 +4,20 @@ using System;
 public class Main : Node2D
 {
     private Node2D _wave;
+
+    private CanvasLayer _hud;
+
+    public int score;
+    public int highScore;
+
     public override void _Ready()
+    {
+        CreateConnection();
+        HandleHud();
+        base._Ready();
+    }
+
+    public void CreateConnection()
     {
         GetNode<Area2D>("Player").Connect("PressShoot", this, nameof(OnPlayerShoot));
         _wave = GetNode<Node2D>("Wave");
@@ -15,7 +28,6 @@ public class Main : Node2D
                 child.Connect("onShoot", this, nameof(OnEnemyShoot));
             }
         }
-        base._Ready();
     }
 
     public void OnPlayerShoot(PackedScene missile, Vector2 location)
@@ -36,5 +48,10 @@ public class Main : Node2D
             rockInstance.Position = location;
             rockInstance.Velocity.y = 1;
         }
+    }
+
+    public void HandleHud()
+    {
+        _hud = GetNode<CanvasLayer>("HUD");
     }
 }

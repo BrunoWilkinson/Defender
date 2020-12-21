@@ -10,6 +10,10 @@ public class Main : Node2D
     public int score;
     public int highScore;
 
+    public bool startGame;
+
+    public bool inGame;
+
     public override void _Ready()
     {
         CreateConnection();
@@ -53,5 +57,13 @@ public class Main : Node2D
     public void HandleHud()
     {
         _hud = GetNode<CanvasLayer>("HUD");
+        if (startGame)
+        {
+            HUD.StartGame();
+        }
+        else if (inGame)
+        {
+            HUD.InGame();
+        }
     }
 }

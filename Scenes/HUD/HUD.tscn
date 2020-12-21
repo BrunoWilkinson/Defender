@@ -6,6 +6,7 @@
 [node name="HUD" type="CanvasLayer"]
 
 [node name="InGame" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="Menu" parent="." instance=ExtResource( 2 )]
 visible = false

@@ -198,27 +198,3 @@ position = Vector2( 160, 224 )
 
 [node name="Enemy64" parent="." instance=ExtResource( 2 )]
 position = Vector2( 224, 224 )
-
-[node name="Enemy65" parent="." instance=ExtResource( 2 )]
-position = Vector2( -224, 288 )
-
-[node name="Enemy66" parent="." instance=ExtResource( 2 )]
-position = Vector2( -160, 288 )
-
-[node name="Enemy67" parent="." instance=ExtResource( 2 )]
-position = Vector2( -96, 288 )
-
-[node name="Enemy68" parent="." instance=ExtResource( 2 )]
-position = Vector2( -32, 288 )
-
-[node name="Enemy69" parent="." instance=ExtResource( 2 )]
-position = Vector2( 32, 288 )
-
-[node name="Enemy70" parent="." instance=ExtResource( 2 )]
-position = Vector2( 96, 288 )
-
-[node name="Enemy71" parent="." instance=ExtResource( 2 )]
-position = Vector2( 160, 288 )
-
-[node name="Enemy72" parent="." instance=ExtResource( 2 )]
-position = Vector2( 224, 288 )

@@ -3,10 +3,6 @@ using System;
 
 public class Main : Node2D
 {
-    private Node2D _wave;
-
-    private CanvasLayer _hud;
-
     public int score;
     public int highScore;
 
@@ -14,18 +10,51 @@ public class Main : Node2D
 
     public bool inGame;
 
+    private PackedScene _waveScene = GD.Load<PackedScene>("res://Scenes/Wave/Wave.tscn");
+
+    private PackedScene _playerScene = GD.Load<PackedScene>("res://Scenes/Player/Player.tscn");
+
+    private Node2D _wave;
+
+    private Area2D _player;
+
+    private Timer _waveTimer;
+
     public override void _Ready()
     {
+        GetNode<CanvasLayer>("HUD").Connect("NewGame", this, nameof(StartGame));
+        _waveTimer = GetNode<Timer>("WaveTimer");
+        _waveTimer.Connect("timeout", this, nameof(UnPause));
+        _wave = (Wave)_waveScene.Instance();
+        _player = (Player)_playerScene.Instance();
+        InMenu();
+    }
+
+    public void InMenu()
+    {
+        HUD.MenuGame();
+    }
+
+    public void StartGame()
+    {
+        _waveTimer.Start();
+        HUD.InGame();
+        AddChild(_wave);
+        AddChild(_player);
         CreateConnection();
-        HandleHud();
-        base._Ready();
+        GetTree().Paused = true;
+    }
+
+    public void UnPause()
+    {
+        GD.Print("UnPAUSE");
+        GetTree().Paused = false;
     }
 
     public void CreateConnection()
     {
         GetNode<Area2D>("Player").Connect("PressShoot", this, nameof(OnPlayerShoot));
-        _wave = GetNode<Node2D>("Wave");
-        foreach (Node child in _wave.GetChildren())
+        foreach (Node child in GetNode<Node2D>("Wave").GetChildren())
         {
             if (child.GetType().ToString() == "Enemy")
             {
@@ -51,19 +80,6 @@ public class Main : Node2D
             AddChild(rockInstance);
             rockInstance.Position = location;
             rockInstance.Velocity.y = 1;
-        }
-    }
-
-    public void HandleHud()
-    {
-        _hud = GetNode<CanvasLayer>("HUD");
-        if (startGame)
-        {
-            HUD.StartGame();
-        }
-        else if (inGame)
-        {
-            HUD.InGame();
         }
     }
 }

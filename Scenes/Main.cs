@@ -6,10 +6,6 @@ public class Main : Node2D
     public ulong score = 0;
     public ulong highScore;
 
-    public bool startGame;
-
-    public bool inGame;
-
     private PackedScene _waveScene = GD.Load<PackedScene>("res://Scenes/Wave/Wave.tscn");
 
     private PackedScene _playerScene = GD.Load<PackedScene>("res://Scenes/Player/Player.tscn");
@@ -38,15 +34,19 @@ public class Main : Node2D
         _waveTimer.Start();
         HUD.InGame();
         HUD.UpdateHighScore(highScore);
+        HUD.ShowGetReady(score);
         AddChild(_waveScene.Instance());
         AddChild(_playerScene.Instance());
         CreateConnection();
+        GetNode<Node2D>("Wave").Hide();
         GetTree().Paused = true;
     }
 
     public void UnPause()
     {
         GetTree().Paused = false;
+        HUD.HideGetReady();
+        GetNode<Node2D>("Wave").Show();
     }
 
     public void ClearChildren()

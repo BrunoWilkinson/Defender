@@ -35,6 +35,17 @@ public class HUD : CanvasLayer
         _inGame.GetNode<Label>("HighScore").Text = $"HighScore: {highScore}";
     }
 
+    public static void ShowGetReady(ulong score)
+    {
+        _inGame.GetNode<Label>("GetReady").Text = $"Get Ready\nWave #{score + 1}";
+        _inGame.GetNode<Label>("GetReady").Show();
+    }
+
+    public static void HideGetReady()
+    {
+        _inGame.GetNode<Label>("GetReady").Hide();
+    }
+
     public void OnNewGame()
     {
         EmitSignal(nameof(NewGame));

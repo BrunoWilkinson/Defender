@@ -14,10 +14,6 @@ public class Main : Node2D
 
     private PackedScene _playerScene = GD.Load<PackedScene>("res://Scenes/Player/Player.tscn");
 
-    private Node2D _wave;
-
-    private Area2D _player;
-
     private Timer _waveTimer;
 
     public override void _Ready()
@@ -25,8 +21,6 @@ public class Main : Node2D
         GetNode<CanvasLayer>("HUD").Connect("NewGame", this, nameof(StartGame));
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
-        _wave = (Wave)_waveScene.Instance();
-        _player = (Player)_playerScene.Instance();
         InMenu();
     }
 
@@ -39,21 +33,30 @@ public class Main : Node2D
     {
         _waveTimer.Start();
         HUD.InGame();
-        AddChild(_wave);
-        AddChild(_player);
+        AddChild(_waveScene.Instance());
+        AddChild(_playerScene.Instance());
         CreateConnection();
         GetTree().Paused = true;
     }
 
     public void UnPause()
     {
-        GD.Print("UnPAUSE");
         GetTree().Paused = false;
+    }
+
+    public void GameOver()
+    {
+        GetNode<Node2D>("Wave").QueueFree();
+        GetNode<Node2D>("Player").QueueFree();
+        // add score logic
+        InMenu();
     }
 
     public void CreateConnection()
     {
-        GetNode<Area2D>("Player").Connect("PressShoot", this, nameof(OnPlayerShoot));
+        Area2D player = GetNode<Area2D>("Player");
+        player.Connect("PressShoot", this, nameof(OnPlayerShoot));
+        player.Connect("HitGameOver", this, nameof(GameOver));
         foreach (Node child in GetNode<Node2D>("Wave").GetChildren())
         {
             if (child.GetType().ToString() == "Enemy")
@@ -73,7 +76,7 @@ public class Main : Node2D
 
     public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
     {
-        uint randomEnemy = (uint)Math.Ceiling(GD.RandRange(0, _wave.GetChildCount() - 1));
+        uint randomEnemy = (uint)Math.Ceiling(GD.RandRange(0, GetNode<Node2D>("Wave").GetChildCount() - 1));
         if (enemy.GetIndex() == randomEnemy)
         {
             Rock rockInstance = (Rock)rock.Instance();

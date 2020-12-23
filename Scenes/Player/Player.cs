@@ -6,6 +6,9 @@ public class Player : Area2D
     [Signal]
     delegate void PressShoot(PackedScene bullet, Vector2 location);
 
+    [Signal]
+    delegate void HitGameOver();
+
     [Export]
     public float speed = 500;
 
@@ -27,8 +30,9 @@ public class Player : Area2D
         String type = area.GetType().ToString();
         if (type == "Enemy" || type == "Rock")
         {
-            Hide();
+            QueueFree();
             area.QueueFree();
+            EmitSignal(nameof(HitGameOver));
         }
     }
 

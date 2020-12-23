@@ -38,6 +38,7 @@ public class Player : Area2D
 
     public override void _Ready()
     {
+        currentTime = fireRate; 
         screenSize = GetViewport().Size;
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(onHit));
@@ -74,7 +75,7 @@ public class Player : Area2D
     private void Shoot(float delta)
     {
         currentTime += delta;
-        if (Input.IsActionJustReleased("shoot") && currentTime > fireRate && !Input.IsActionPressed("block"))
+        if (Input.IsActionJustReleased("shoot") && currentTime >= fireRate && !Input.IsActionPressed("block"))
         {
             currentTime = 0;
             EmitSignal(nameof(PressShoot), _missile, Position);
@@ -85,6 +86,7 @@ public class Player : Area2D
     {
         if (Input.IsActionPressed("block"))
         {
+            currentTime = 0;
             _shield.Show();
             _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
         }

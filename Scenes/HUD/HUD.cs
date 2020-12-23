@@ -25,6 +25,16 @@ public class HUD : CanvasLayer
         _inGame.Show();
     }
 
+    public static void UpdateScore(ulong score)
+    {
+        _inGame.GetNode<Label>("Score").Text = $"Score: {score}";
+    }
+
+    public static void UpdateHighScore(ulong highScore)
+    {
+        _inGame.GetNode<Label>("HighScore").Text = $"HighScore: {highScore}";
+    }
+
     public void OnNewGame()
     {
         EmitSignal(nameof(NewGame));

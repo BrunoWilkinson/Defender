@@ -3,8 +3,8 @@ using System;
 
 public class Main : Node2D
 {
-    public int score;
-    public int highScore;
+    public ulong score = 0;
+    public ulong highScore;
 
     public bool startGame;
 
@@ -16,8 +16,11 @@ public class Main : Node2D
 
     private Timer _waveTimer;
 
+    private String _highScoreFilePath = "res://highscore.save";
+
     public override void _Ready()
     {
+        HUD.UpdateScore(score);
         GetNode<CanvasLayer>("HUD").Connect("NewGame", this, nameof(StartGame));
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
@@ -31,8 +34,10 @@ public class Main : Node2D
 
     public void StartGame()
     {
+        LoadHighScore();
         _waveTimer.Start();
         HUD.InGame();
+        HUD.UpdateHighScore(highScore);
         AddChild(_waveScene.Instance());
         AddChild(_playerScene.Instance());
         CreateConnection();
@@ -57,16 +62,43 @@ public class Main : Node2D
 
     public void GameOver()
     {
-        // add score logic
+        if (score > highScore)
+        {
+            SaveHighScore();
+        }
         ClearChildren();
         InMenu();
     }
 
     public void GameWon()
     {
-        // score logic
+        score += 1;
+        HUD.UpdateScore(score);
         ClearChildren();
         StartGame();
+    }
+
+    public void SaveHighScore()
+    {
+        File file = new File();
+        file.Open(_highScoreFilePath, File.ModeFlags.Write);
+        file.Store64(score);
+        file.Close();
+    }
+
+    public void LoadHighScore()
+    {
+        File file = new File();
+        if (file.FileExists(_highScoreFilePath))
+        {
+            file.Open(_highScoreFilePath, File.ModeFlags.Read);
+            highScore = file.Get64();
+            file.Close();
+        }
+        else
+        {
+            highScore = 0;
+        }
     }
     public void CreateConnection()
     {

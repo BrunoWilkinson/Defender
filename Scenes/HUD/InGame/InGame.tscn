@@ -30,6 +30,7 @@ text = "score: 69"
 uppercase = true
 
 [node name="GetReady" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -74,8 +74,9 @@ public class Player : Area2D
     private void Shoot(float delta)
     {
         currentTime += delta;
-        if (Input.IsActionPressed("shoot") && currentTime > fireRate && !Input.IsActionPressed("block"))
+        if (Input.IsActionJustReleased("shoot") && currentTime > fireRate && !Input.IsActionPressed("block"))
         {
+            GD.Print("SHOOTING: ", _missile.CanInstance());
             currentTime = 0;
             EmitSignal(nameof(PressShoot), _missile, Position);
         }

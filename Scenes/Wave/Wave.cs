@@ -3,6 +3,9 @@ using System;
 
 public class Wave : Node2D
 {
+    [Signal]
+    delegate void Defeat();
+
     [Export]
     public float speed = 5;
     [Export]
@@ -50,16 +53,28 @@ public class Wave : Node2D
 
     public void speedUp()
     {
-        if (GetChildCount() == 2) {
+        if (GetChildCount() == 2)
+        {
             speed *= 2;
-        } else {
+        }
+        else
+        {
             speed += speedUpBy;
-        }  
+        }
     }
 
     public override void _Process(float delta)
     {
         Movement(delta);
+        isDefeat();
+    }
+
+    private void isDefeat()
+    {
+        if (GetChildCount() == 0)
+        {
+            EmitSignal(nameof(Defeat));
+        }
     }
 
     private void Movement(float delta)

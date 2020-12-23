@@ -44,20 +44,38 @@ public class Main : Node2D
         GetTree().Paused = false;
     }
 
+    public void ClearChildren()
+    {
+        foreach (Node child in GetChildren())
+        {
+            if (child is Missile || child is Rock || child is Player || child is Wave)
+            {
+                RemoveChild(child);
+            }
+        }
+    }
+
     public void GameOver()
     {
-        GetNode<Node2D>("Wave").QueueFree();
-        GetNode<Node2D>("Player").QueueFree();
         // add score logic
+        ClearChildren();
         InMenu();
     }
 
+    public void GameWon()
+    {
+        // score logic
+        ClearChildren();
+        StartGame();
+    }
     public void CreateConnection()
     {
         Area2D player = GetNode<Area2D>("Player");
+        Node2D wave = GetNode<Node2D>("Wave");
         player.Connect("PressShoot", this, nameof(OnPlayerShoot));
         player.Connect("HitGameOver", this, nameof(GameOver));
-        foreach (Node child in GetNode<Node2D>("Wave").GetChildren())
+        wave.Connect("Defeat", this, nameof(GameWon));
+        foreach (Node child in wave.GetChildren())
         {
             if (child.GetType().ToString() == "Enemy")
             {

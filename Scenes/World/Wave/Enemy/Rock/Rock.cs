@@ -6,9 +6,9 @@ public class Rock : Area2D
     [Export]
     public float speed = 200;
 
-    public Vector2 Velocity = new Vector2();
+    public Vector2 velocity = new Vector2();
 
-    public void onHitShield(Area2D area)
+    public void OnHitShield(Area2D area)
     {
         if (area.Name == "Shield")
         {
@@ -18,16 +18,16 @@ public class Rock : Area2D
 
     public override void _Ready()
     {
-        GetNode<VisibilityNotifier2D>("ScreenCheck").Connect("screen_exited", this, nameof(onExit));
-        Connect("area_entered", this, nameof(onHitShield));
+        GetNode<VisibilityNotifier2D>("ScreenCheck").Connect("screen_exited", this, nameof(OnExit));
+        Connect("area_entered", this, nameof(OnHitShield));
     }
 
     public override void _Process(float delta)
     {
-        Position += Velocity * speed * delta;
+        Position += velocity * speed * delta;
     }
 
-    public void onExit()
+    public void OnExit()
     {
         QueueFree();
     }

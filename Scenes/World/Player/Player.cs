@@ -25,23 +25,12 @@ public class Player : Area2D
 
     private Area2D _shield;
 
-    public void onHit(Area2D area)
-    {
-        String type = area.GetType().ToString();
-        if (type == "Enemy" || type == "Rock")
-        {
-            QueueFree();
-            area.QueueFree();
-            EmitSignal(nameof(OnHit));
-        }
-    }
-
     public override void _Ready()
     {
-        currentTime = fireRate; 
+        currentTime = fireRate;
         screenSize = GetViewport().Size;
         _shield = GetNode<Area2D>("Shield");
-        Connect("area_entered", this, nameof(onHit));
+        Connect("area_entered", this, nameof(Hit));
         _shield.Hide();
         _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
     }
@@ -51,6 +40,17 @@ public class Player : Area2D
         Controls(delta);
         Shoot(delta);
         Block(delta);
+    }
+
+    public void Hit(Area2D area)
+    {
+        String type = area.GetType().ToString();
+        if (type == "Enemy" || type == "Rock")
+        {
+            QueueFree();
+            area.QueueFree();
+            EmitSignal(nameof(OnHit));
+        }
     }
 
     private void Controls(float delta)

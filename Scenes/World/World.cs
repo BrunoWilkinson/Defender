@@ -60,7 +60,7 @@ public class World : Node2D
         Missile missileInstance = (Missile)missile.Instance();
         AddChild(missileInstance);
         missileInstance.Position = location;
-        missileInstance.Velocity.y = -1;
+        missileInstance.velocity.y = -1;
     }
 
     public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
@@ -71,7 +71,7 @@ public class World : Node2D
             Rock rockInstance = (Rock)rock.Instance();
             AddChild(rockInstance);
             rockInstance.Position = location;
-            rockInstance.Velocity.y = 1;
+            rockInstance.velocity.y = 1;
         }
     }
 }

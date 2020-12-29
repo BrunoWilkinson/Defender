@@ -4,16 +4,16 @@ using System;
 public class Walls : Node2D
 {
     [Signal]
-    public delegate void rightWall(Area2D area);
+    public delegate void OnRightWall(Area2D area);
 
     [Signal]
-    public delegate void leftWall(Area2D area);
+    public delegate void OnLeftWall(Area2D area);
 
     public void OnRight(Area2D area)
     {
         if (area.GetType().ToString() == "Enemy")
         {
-            EmitSignal(nameof(rightWall), area);
+            EmitSignal(nameof(OnRightWall), area);
         }
 
     }
@@ -22,7 +22,7 @@ public class Walls : Node2D
     {
         if (area.GetType().ToString() == "Enemy")
         {
-            EmitSignal(nameof(leftWall), area);
+            EmitSignal(nameof(OnLeftWall), area);
         }
 
     }

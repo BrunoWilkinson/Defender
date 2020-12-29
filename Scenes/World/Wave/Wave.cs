@@ -46,12 +46,12 @@ public class Wave : Node2D
         {
             if (child.GetType().ToString() == "Enemy")
             {
-                child.Connect("onDestroy", this, nameof(speedUp));
+                child.Connect("OnDestroy", this, nameof(SpeedUp));
             }
         }
     }
 
-    public void speedUp()
+    public void SpeedUp()
     {
         if (GetChildCount() == 2)
         {
@@ -66,10 +66,10 @@ public class Wave : Node2D
     public override void _Process(float delta)
     {
         Movement(delta);
-        isDefeat();
+        IsDefeat();
     }
 
-    private void isDefeat()
+    private void IsDefeat()
     {
         if (GetChildCount() == 0)
         {

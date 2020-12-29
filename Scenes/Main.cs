@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Main : Node2D
+public class Main : Node
 {
     public ulong score = 0;
     public ulong highScore;
@@ -16,8 +16,8 @@ public class Main : Node2D
 
     public override void _Ready()
     {
-        HUD.UpdateScore(score);
-        GetNode<CanvasLayer>("HUD").Connect("NewGame", this, nameof(StartGame));
+        GUI.UpdateScore(score);
+        GetNode<CanvasLayer>("GUI").Connect("NewGame", this, nameof(StartGame));
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
         InMenu();
@@ -25,16 +25,16 @@ public class Main : Node2D
 
     public void InMenu()
     {
-        HUD.MenuGame();
+        GUI.MenuGame();
     }
 
     public void StartGame()
     {
         LoadHighScore();
         _waveTimer.Start();
-        HUD.InGame();
-        HUD.UpdateHighScore(highScore);
-        HUD.ShowGetReady(score);
+        GUI.InGame();
+        GUI.UpdateHighScore(highScore);
+        GUI.ShowGetReady(score);
         AddChild(_waveScene.Instance());
         AddChild(_playerScene.Instance());
         CreateConnection();
@@ -45,7 +45,7 @@ public class Main : Node2D
     public void UnPause()
     {
         GetTree().Paused = false;
-        HUD.HideGetReady();
+        GUI.HideGetReady();
         GetNode<Node2D>("Wave").Show();
     }
 
@@ -73,7 +73,7 @@ public class Main : Node2D
     public void GameWon()
     {
         score += 1;
-        HUD.UpdateScore(score);
+        GUI.UpdateScore(score);
         ClearChildren();
         StartGame();
     }

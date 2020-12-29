@@ -1,7 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scenes/Rock/Rock.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/World/Wave/Enemy/Rock/Rock.cs" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

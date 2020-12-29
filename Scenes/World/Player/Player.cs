@@ -4,10 +4,10 @@ using System;
 public class Player : Area2D
 {
     [Signal]
-    delegate void PressShoot(PackedScene bullet, Vector2 location);
+    delegate void OnShoot(PackedScene bullet, Vector2 location);
 
     [Signal]
-    delegate void HitGameOver();
+    delegate void OnHit();
 
     [Export]
     public float speed = 500;
@@ -32,7 +32,7 @@ public class Player : Area2D
         {
             QueueFree();
             area.QueueFree();
-            EmitSignal(nameof(HitGameOver));
+            EmitSignal(nameof(OnHit));
         }
     }
 
@@ -78,7 +78,7 @@ public class Player : Area2D
         if (Input.IsActionJustReleased("shoot") && currentTime >= fireRate && !Input.IsActionPressed("block"))
         {
             currentTime = 0;
-            EmitSignal(nameof(PressShoot), _missile, Position);
+            EmitSignal(nameof(OnShoot), _missile, Position);
         }
     }
 

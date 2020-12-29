@@ -4,7 +4,7 @@ using System;
 public class Wave : Node2D
 {
     [Signal]
-    delegate void Defeat();
+    delegate void OnDefeat();
 
     [Export]
     public float speed = 5;
@@ -73,7 +73,7 @@ public class Wave : Node2D
     {
         if (GetChildCount() == 0)
         {
-            EmitSignal(nameof(Defeat));
+            EmitSignal(nameof(OnDefeat));
         }
     }
 

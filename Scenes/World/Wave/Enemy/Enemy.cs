@@ -4,26 +4,27 @@ using System;
 public class Enemy : Area2D
 {
     [Signal]
-    public delegate void onDestroy();
+    public delegate void OnDestroy();
     [Signal]
-    delegate void onShoot(PackedScene bullet, Vector2 location, Area2D enemy);
+    delegate void OnShoot(PackedScene bullet, Vector2 location, Area2D enemy);
     private PackedScene _rock = GD.Load<PackedScene>("res://Scenes/Rock/Rock.tscn");
-    public void onHit(Area2D area)
+
+    public override void _Ready()
+    {
+        Connect("area_entered", this, nameof(OnHit));
+        GetNode<Timer>("RateOfFire").Connect("timeout", this, nameof(Shoot));
+    }
+    public void OnHit(Area2D area)
     {
         if (area.GetType().ToString() == "Missile")
         {
             QueueFree();
             area.QueueFree();
-            EmitSignal(nameof(onDestroy));
+            EmitSignal(nameof(OnDestroy));
         }
     }
-    public void shoot()
+    public void Shoot()
     {
-        EmitSignal(nameof(onShoot), _rock, GlobalPosition, this);
-    }
-    public override void _Ready()
-    {
-        Connect("area_entered", this, nameof(onHit));
-        GetNode<Timer>("RateOfFire").Connect("timeout", this, nameof(shoot));
+        EmitSignal(nameof(OnShoot), _rock, GlobalPosition, this);
     }
 }

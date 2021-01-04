@@ -1,7 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scenes/World/Wave/Enemy/Enemy.cs" type="Script" id=1]
+[ext_resource path="res://Main/World/Player/Missile/Missile.cs" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+
+
 
 
 [sub_resource type="SpriteFrames" id=1]
@@ -15,10 +17,10 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 32, 32 )
 
-[node name="Enemy" type="Area2D"]
-position = Vector2( 16, 16 )
-scale = Vector2( 0.521818, 0.535313 )
+[node name="Area2D" type="Area2D"]
+scale = Vector2( 0.1, 0.45 )
 script = ExtResource( 1 )
+speed = 500.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -26,6 +28,4 @@ frames = SubResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
-[node name="RateOfFire" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
+[node name="ScreenCheck" type="VisibilityNotifier2D" parent="."]

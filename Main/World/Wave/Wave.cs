@@ -23,18 +23,6 @@ public class Wave : Node2D
     private MovementState yState;
     private Vector2 velocity = Vector2.Zero;
 
-    public void OnCollideRightWall(Area2D area)
-    {
-        xState = MovementState.MOVE_LEFT;
-        yState = MovementState.MOVE_DOWN;
-    }
-
-    public void OnCollideLeftWall(Area2D area)
-    {
-        xState = MovementState.MOVE_RIGHT;
-        yState = MovementState.MOVE_DOWN;
-    }
-
     public override void _Ready()
     {
         Node2D walls = GetNode<Node2D>("../Walls");
@@ -51,18 +39,6 @@ public class Wave : Node2D
         }
     }
 
-    public void SpeedUp()
-    {
-        if (GetChildCount() == 2)
-        {
-            speed *= 2;
-        }
-        else
-        {
-            speed += speedUpBy;
-        }
-    }
-
     public override void _Process(float delta)
     {
         Movement(delta);
@@ -76,6 +52,32 @@ public class Wave : Node2D
             EmitSignal(nameof(OnDefeat));
         }
     }
+
+    public void OnCollideRightWall(Area2D area)
+    {
+        xState = MovementState.MOVE_LEFT;
+        yState = MovementState.MOVE_DOWN;
+    }
+
+    public void OnCollideLeftWall(Area2D area)
+    {
+        xState = MovementState.MOVE_RIGHT;
+        yState = MovementState.MOVE_DOWN;
+    }
+
+    public void SpeedUp()
+    {
+        if (GetChildCount() == 2)
+        {
+            speed *= 2;
+        }
+        else
+        {
+            speed += speedUpBy;
+        }
+    }
+
+
 
     private void Movement(float delta)
     {

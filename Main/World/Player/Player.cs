@@ -15,19 +15,17 @@ public class Player : Area2D
     [Export]
     public float spriteSize = 32;
 
-    [Export]
-    public float fireRate = 1;
-
     Vector2 screenSize;
-    float currentTime;
 
     private PackedScene _missile = GD.Load<PackedScene>("res://Scenes/Missile/Missile.tscn");
 
     private Area2D _shield;
 
+    private bool _canShoot = true;
+
     public override void _Ready()
     {
-        currentTime = fireRate;
+        GetNode<Timer>("FireRate").Connect("timeout", this, nameof(CanShoot));
         screenSize = GetViewport().Size;
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(Hit));
@@ -38,8 +36,13 @@ public class Player : Area2D
     public override void _Process(float delta)
     {
         Controls(delta);
-        Shoot(delta);
-        Block(delta);
+        Shoot();
+        Block();
+    }
+
+    public void CanShoot()
+    {
+        _canShoot = true;
     }
 
     public void Hit(Area2D area)
@@ -72,21 +75,20 @@ public class Player : Area2D
         );
     }
 
-    private void Shoot(float delta)
+    private void Shoot()
     {
-        currentTime += delta;
-        if (Input.IsActionJustReleased("shoot") && currentTime >= fireRate && !Input.IsActionPressed("block"))
+        if (Input.IsActionJustReleased("shoot") && _canShoot && !Input.IsActionPressed("block"))
         {
-            currentTime = 0;
+            _canShoot = false;
             EmitSignal(nameof(OnShoot), _missile, Position);
         }
     }
 
-    private void Block(float detla)
+    private void Block()
     {
         if (Input.IsActionPressed("block"))
         {
-            currentTime = 0;
+            _canShoot = false;
             _shield.Show();
             _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
         }

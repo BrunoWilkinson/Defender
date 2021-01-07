@@ -79,6 +79,9 @@ public class Player : Area2D
     {
         if (Input.IsActionJustReleased("shoot") && _canShoot && !Input.IsActionPressed("block"))
         {
+# if DEBUG
+            GD.Print("Log: Missile shoot");
+#endif
             _canShoot = false;
             EmitSignal(nameof(OnShoot), _missile, Position);
         }

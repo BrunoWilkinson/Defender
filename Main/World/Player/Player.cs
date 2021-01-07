@@ -17,7 +17,7 @@ public class Player : Area2D
 
     Vector2 screenSize;
 
-    private PackedScene _missile = GD.Load<PackedScene>("res://Scenes/Missile/Missile.tscn");
+    private PackedScene _missile = GD.Load<PackedScene>("res://Main/World/Player/Missile/Missile.tscn");
 
     private Area2D _shield;
 

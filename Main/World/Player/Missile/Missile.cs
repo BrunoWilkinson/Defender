@@ -15,7 +15,9 @@ public class Missile : Area2D
 
     public override void _Process(float delta)
     {
+        velocity.y = -1;
         Position += velocity * speed * delta;
+        GD.Print(Position);
     }
 
     public void OnExit()

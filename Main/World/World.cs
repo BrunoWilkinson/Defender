@@ -70,7 +70,6 @@ public class World : Node2D
             Rock rockInstance = (Rock)rock.Instance();
             AddChild(rockInstance);
             rockInstance.Position = location;
-            rockInstance.velocity.y = 1;
         }
     }
 }

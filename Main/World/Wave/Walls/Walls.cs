@@ -4,10 +4,10 @@ using System;
 public class Walls : Node2D
 {
     [Signal]
-    public delegate void OnRightWall(Area2D area);
+    public delegate void OnRightCollision();
 
     [Signal]
-    public delegate void OnLeftWall(Area2D area);
+    public delegate void OnLeftCollision();
 
     public override void _Ready()
     {
@@ -17,18 +17,18 @@ public class Walls : Node2D
 
     public void OnRight(Area2D area)
     {
-        if (area.GetType().ToString() == "Enemy")
+        if (area is Enemy)
         {
-            EmitSignal(nameof(OnRightWall), area);
+            EmitSignal(nameof(OnRightCollision));
         }
 
     }
 
     public void OnLeft(Area2D area)
     {
-        if (area.GetType().ToString() == "Enemy")
+        if (area is Enemy)
         {
-            EmitSignal(nameof(OnLeftWall), area);
+            EmitSignal(nameof(OnLeftCollision));
         }
 
     }

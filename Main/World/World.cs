@@ -27,7 +27,7 @@ public class World : Node2D
         _wave.Connect("OnDefeat", this, nameof(WaveWon));
         foreach (Node child in _wave.GetChildren())
         {
-            if (child.GetType().ToString() == "Enemy")
+            if (child is Enemy)
             {
                 child.Connect("onShoot", this, nameof(OnEnemyShoot));
             }

@@ -16,7 +16,7 @@ public class Enemy : Area2D
     }
     public void OnHit(Area2D area)
     {
-        if (area.GetType().ToString() == "Missile")
+        if (area is Missile)
         {
             QueueFree();
             area.QueueFree();

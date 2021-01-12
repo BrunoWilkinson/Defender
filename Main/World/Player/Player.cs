@@ -47,8 +47,7 @@ public class Player : Area2D
 
     public void Hit(Area2D area)
     {
-        String type = area.GetType().ToString();
-        if (type == "Enemy" || type == "Rock")
+        if (area is Enemy || area is Rock)
         {
             QueueFree();
             area.QueueFree();

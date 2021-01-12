@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Main/World/Wave/Wave.cs" type="Script" id=1]
 [ext_resource path="res://Main/World/Wave/Enemy/Enemy.tscn" type="PackedScene" id=2]
-
-
+[ext_resource path="res://Main/World/Wave/Walls/Walls.tscn" type="PackedScene" id=3]
 
 [node name="Wave" type="Node2D"]
 position = Vector2( 320, 208 )
 script = ExtResource( 1 )
-speed = 5.0
-drop = 5.0
-speedUpBy = 5.0
+speed = 50.0
+
+[node name="Walls" parent="." instance=ExtResource( 3 )]
+position = Vector2( -320, -208 )
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( -224, -160 )

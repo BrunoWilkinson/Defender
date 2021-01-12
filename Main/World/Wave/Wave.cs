@@ -25,14 +25,14 @@ public class Wave : Node2D
 
     public override void _Ready()
     {
-        Node2D walls = GetNode<Node2D>("../Walls");
-        walls.Connect("rightWall", this, nameof(OnCollideRightWall));
-        walls.Connect("leftWall", this, nameof(OnCollideLeftWall));
+        Node2D walls = GetNode<Node2D>("Walls");
+        walls.Connect("OnRightCollision", this, nameof(OnCollideRight));
+        walls.Connect("OnLeftCollision", this, nameof(OnCollideLeft));
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.PASSIVE;
         foreach (Node child in GetChildren())
         {
-            if (child.GetType().ToString() == "Enemy")
+            if (child is Enemy)
             {
                 child.Connect("OnDestroy", this, nameof(SpeedUp));
             }
@@ -53,14 +53,16 @@ public class Wave : Node2D
         }
     }
 
-    public void OnCollideRightWall(Area2D area)
+    public void OnCollideRight()
     {
+        GD.Print("Collide RIGHT WALL");
         xState = MovementState.MOVE_LEFT;
         yState = MovementState.MOVE_DOWN;
     }
 
-    public void OnCollideLeftWall(Area2D area)
+    public void OnCollideLeft()
     {
+        GD.Print("Collide LEFT WALL");
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.MOVE_DOWN;
     }
@@ -77,12 +79,8 @@ public class Wave : Node2D
         }
     }
 
-
-
     private void Movement(float delta)
     {
-        Vector2 screenSize = GetViewport().Size;
-
         if (xState == MovementState.MOVE_RIGHT && yState == MovementState.PASSIVE)
         {
             velocity = Vector2.Zero;

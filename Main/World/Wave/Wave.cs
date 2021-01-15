@@ -25,9 +25,6 @@ public class Wave : Node2D
 
     public override void _Ready()
     {
-        Node2D walls = GetNode<Node2D>("Walls");
-        walls.Connect("OnRightCollision", this, nameof(OnCollideRight));
-        walls.Connect("OnLeftCollision", this, nameof(OnCollideLeft));
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.PASSIVE;
         foreach (Node child in GetChildren())
@@ -55,14 +52,12 @@ public class Wave : Node2D
 
     public void OnCollideRight()
     {
-        GD.Print("Collide RIGHT WALL");
         xState = MovementState.MOVE_LEFT;
         yState = MovementState.MOVE_DOWN;
     }
 
     public void OnCollideLeft()
     {
-        GD.Print("Collide LEFT WALL");
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.MOVE_DOWN;
     }

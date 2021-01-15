@@ -17,7 +17,6 @@ public class Missile : Area2D
     {
         velocity.y = -1;
         Position += velocity * speed * delta;
-        GD.Print(Position);
     }
 
     public void OnExit()

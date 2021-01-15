@@ -24,12 +24,15 @@ public class World : Node2D
     {
         _player.Connect("OnShoot", this, nameof(OnPlayerShoot));
         _player.Connect("OnHit", this, nameof(GameOver));
+         Node2D walls = GetNode<Node2D>("Walls");
+        walls.Connect("OnRightCollision", _wave, "OnCollideRight");
+        walls.Connect("OnLeftCollision", _wave, "OnCollideLeft");
         _wave.Connect("OnDefeat", this, nameof(WaveWon));
         foreach (Node child in _wave.GetChildren())
         {
             if (child is Enemy)
             {
-                child.Connect("onShoot", this, nameof(OnEnemyShoot));
+                child.Connect("OnShoot", this, nameof(OnEnemyShoot));
             }
         }
     }

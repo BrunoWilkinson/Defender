@@ -4,7 +4,6 @@
 [ext_resource path="res://Main/GUI/InGame/InGame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main/GUI/GUI.cs" type="Script" id=3]
 
-
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource( 3 )
 

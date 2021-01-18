@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Main",
+    "\\Main\\World",
+    "\\Main\\World\\Player",
+    "\\Main\\World\\Player\\Missile",
+    "\\Main\\World\\Walls",
+    "\\Main\\World\\Wave",
+    "\\Main\\World\\Wave\\Enemy"
+  ],
+  "SelectedNode": "\\Main\\World\\Walls\\Walls.cs",
+  "PreviewInSolutionExplorer": false
+}

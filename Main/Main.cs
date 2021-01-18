@@ -14,10 +14,11 @@ public class Main : Node
 
     private String _highScoreFilePath = "res://highscore.save";
 
+    private PackedScene _worldScene = GD.Load<PackedScene>("res://Main/World/World.tscn");
+
     public override void _Ready()
     {
         _gui = GetNode<CanvasLayer>("GUI");
-        _world = GetNode<Node2D>("World");
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
         CreateConnection();
@@ -28,8 +29,6 @@ public class Main : Node
     public void CreateConnection()
     {
         _gui.Connect("NewGame", this, nameof(StartGame));
-        _world.Connect("OnGameOver", this, nameof(GameOver));
-        _world.Connect("OnWaveWon", this, nameof(WaveWon));
     }
 
     public void StartGame()
@@ -39,6 +38,10 @@ public class Main : Node
         GUI.InGame();
         GUI.UpdateHighScore(highScore);
         GUI.ShowGetReady(score);
+        _world = (World)_worldScene.Instance();
+        AddChild(_world);
+        _world.Connect("OnGameOver", this, nameof(GameOver));
+        _world.Connect("OnWaveWon", this, nameof(WaveWon));
         _world.Hide();
         GetTree().Paused = true;
     }
@@ -67,13 +70,17 @@ public class Main : Node
         {
             SaveHighScore();
         }
+        score = 0;
+        GUI.UpdateScore(score);
         GUI.MenuGame();
+        _world.QueueFree();
     }
 
     public void WaveWon()
     {
         score += 1;
         GUI.UpdateScore(score);
+        _world.QueueFree();
         StartGame();
     }
 

@@ -6,6 +6,7 @@
 extents = Vector2( 48.7239, 200 )
 
 [node name="Shield" type="Area2D"]
+position = Vector2( 320, 264 )
 scale = Vector2( 0.985142, 0.24 )
 
 [node name="Sprite2" type="Sprite" parent="."]

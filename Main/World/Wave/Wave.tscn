@@ -1,14 +1,12 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scenes/Wave/Wave.cs" type="Script" id=1]
-[ext_resource path="res://Scenes/Enemy/Enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main/World/Wave/Wave.cs" type="Script" id=1]
+[ext_resource path="res://Main/World/Wave/Enemy/Enemy.tscn" type="PackedScene" id=2]
 
 [node name="Wave" type="Node2D"]
 position = Vector2( 320, 208 )
 script = ExtResource( 1 )
-speed = 5.0
-drop = 5.0
-speedUpBy = 5.0
+speed = 50.0
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( -224, -160 )
@@ -155,49 +153,25 @@ position = Vector2( 160, 160 )
 position = Vector2( 224, 160 )
 
 [node name="Enemy49" parent="." instance=ExtResource( 2 )]
-position = Vector2( -224, 160 )
-
-[node name="Enemy50" parent="." instance=ExtResource( 2 )]
-position = Vector2( -160, 160 )
-
-[node name="Enemy51" parent="." instance=ExtResource( 2 )]
-position = Vector2( -96, 160 )
-
-[node name="Enemy52" parent="." instance=ExtResource( 2 )]
-position = Vector2( -32, 160 )
-
-[node name="Enemy53" parent="." instance=ExtResource( 2 )]
-position = Vector2( 32, 160 )
-
-[node name="Enemy54" parent="." instance=ExtResource( 2 )]
-position = Vector2( 96, 160 )
-
-[node name="Enemy55" parent="." instance=ExtResource( 2 )]
-position = Vector2( 160, 160 )
-
-[node name="Enemy56" parent="." instance=ExtResource( 2 )]
-position = Vector2( 224, 160 )
-
-[node name="Enemy57" parent="." instance=ExtResource( 2 )]
 position = Vector2( -224, 224 )
 
-[node name="Enemy58" parent="." instance=ExtResource( 2 )]
+[node name="Enemy50" parent="." instance=ExtResource( 2 )]
 position = Vector2( -160, 224 )
 
-[node name="Enemy59" parent="." instance=ExtResource( 2 )]
+[node name="Enemy51" parent="." instance=ExtResource( 2 )]
 position = Vector2( -96, 224 )
 
-[node name="Enemy60" parent="." instance=ExtResource( 2 )]
+[node name="Enemy52" parent="." instance=ExtResource( 2 )]
 position = Vector2( -32, 224 )
 
-[node name="Enemy61" parent="." instance=ExtResource( 2 )]
+[node name="Enemy53" parent="." instance=ExtResource( 2 )]
 position = Vector2( 32, 224 )
 
-[node name="Enemy62" parent="." instance=ExtResource( 2 )]
+[node name="Enemy54" parent="." instance=ExtResource( 2 )]
 position = Vector2( 96, 224 )
 
-[node name="Enemy63" parent="." instance=ExtResource( 2 )]
+[node name="Enemy55" parent="." instance=ExtResource( 2 )]
 position = Vector2( 160, 224 )
 
-[node name="Enemy64" parent="." instance=ExtResource( 2 )]
+[node name="Enemy56" parent="." instance=ExtResource( 2 )]
 position = Vector2( 224, 224 )

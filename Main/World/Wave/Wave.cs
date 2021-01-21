@@ -4,7 +4,7 @@ using System;
 public class Wave : Node2D
 {
     [Signal]
-    delegate void Defeat();
+    delegate void OnDefeat();
 
     [Export]
     public float speed = 5;
@@ -23,35 +23,46 @@ public class Wave : Node2D
     private MovementState yState;
     private Vector2 velocity = Vector2.Zero;
 
-    public void OnCollideRightWall(Area2D area)
+    public override void _Ready()
+    {
+        xState = MovementState.MOVE_RIGHT;
+        yState = MovementState.PASSIVE;
+        foreach (Node child in GetChildren())
+        {
+            if (child is Enemy)
+            {
+                child.Connect("OnDestroy", this, nameof(SpeedUp));
+            }
+        }
+    }
+
+    public override void _Process(float delta)
+    {
+        Movement(delta);
+        IsDefeat();
+    }
+
+    private void IsDefeat()
+    {
+        if (GetChildCount() == 0)
+        {
+            EmitSignal(nameof(OnDefeat));
+        }
+    }
+
+    public void OnCollideRight()
     {
         xState = MovementState.MOVE_LEFT;
         yState = MovementState.MOVE_DOWN;
     }
 
-    public void OnCollideLeftWall(Area2D area)
+    public void OnCollideLeft()
     {
         xState = MovementState.MOVE_RIGHT;
         yState = MovementState.MOVE_DOWN;
     }
 
-    public override void _Ready()
-    {
-        Node2D walls = GetNode<Node2D>("../Walls");
-        walls.Connect("rightWall", this, nameof(OnCollideRightWall));
-        walls.Connect("leftWall", this, nameof(OnCollideLeftWall));
-        xState = MovementState.MOVE_RIGHT;
-        yState = MovementState.PASSIVE;
-        foreach (Node child in GetChildren())
-        {
-            if (child.GetType().ToString() == "Enemy")
-            {
-                child.Connect("onDestroy", this, nameof(speedUp));
-            }
-        }
-    }
-
-    public void speedUp()
+    public void SpeedUp()
     {
         if (GetChildCount() == 2)
         {
@@ -63,24 +74,8 @@ public class Wave : Node2D
         }
     }
 
-    public override void _Process(float delta)
-    {
-        Movement(delta);
-        isDefeat();
-    }
-
-    private void isDefeat()
-    {
-        if (GetChildCount() == 0)
-        {
-            EmitSignal(nameof(Defeat));
-        }
-    }
-
     private void Movement(float delta)
     {
-        Vector2 screenSize = GetViewport().Size;
-
         if (xState == MovementState.MOVE_RIGHT && yState == MovementState.PASSIVE)
         {
             velocity = Vector2.Zero;

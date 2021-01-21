@@ -24,7 +24,7 @@ public class World : Node2D
     {
         _player.Connect("OnShoot", this, nameof(OnPlayerShoot));
         _player.Connect("OnHit", this, nameof(GameOver));
-         Node2D walls = GetNode<Node2D>("Walls");
+        Node2D walls = GetNode<Node2D>("Walls");
         walls.Connect("OnRightCollision", _wave, "OnCollideRight");
         walls.Connect("OnLeftCollision", _wave, "OnCollideLeft");
         _wave.Connect("OnDefeat", this, nameof(WaveWon));
@@ -67,8 +67,9 @@ public class World : Node2D
 
     public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
     {
-        uint randomEnemy = (uint)Math.Ceiling(GD.RandRange(0, GetNode<Node2D>("Wave").GetChildCount() - 1));
-        if (enemy.GetIndex() == randomEnemy)
+        Random rand = new Random();
+        int enemyCount = GetNode<Node2D>("Wave").GetChildCount() - 1;
+        if (enemy.GetIndex() == rand.Next(0, enemyCount) || enemy.GetIndex() == rand.Next(0, enemyCount) || enemy.GetIndex() == rand.Next(0, enemyCount))
         {
             Rock rockInstance = (Rock)rock.Instance();
             AddChild(rockInstance);

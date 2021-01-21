@@ -12,8 +12,9 @@ public class Enemy : Area2D
     public override void _Ready()
     {
         Connect("area_entered", this, nameof(OnHit));
-        GetNode<Timer>("RateOfFire").Connect("timeout", this, nameof(Shoot));
+        GetNode<Timer>("FireRate").Connect("timeout", this, nameof(Shoot));
     }
+
     public void OnHit(Area2D area)
     {
         if (area is Missile)

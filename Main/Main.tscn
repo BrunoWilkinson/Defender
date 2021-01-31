@@ -12,3 +12,11 @@ script = ExtResource( 4 )
 pause_mode = 2
 wait_time = 3.0
 one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 640.0
+color = Color( 0.133333, 0.164706, 0.239216, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

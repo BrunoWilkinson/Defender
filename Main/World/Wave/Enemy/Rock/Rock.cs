@@ -12,6 +12,7 @@ public class Rock : Area2D
     {
         GetNode<VisibilityNotifier2D>("ScreenCheck").Connect("screen_exited", this, nameof(OnExit));
         Connect("area_entered", this, nameof(OnHitShield));
+        GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
     }
 
     public override void _Process(float delta)

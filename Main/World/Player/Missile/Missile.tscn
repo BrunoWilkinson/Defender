@@ -1,18 +1,48 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Main/World/Player/Missile/Missile.cs" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Main/World/Player/Missile/Resources/Missile.png" type="Texture" id=2]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 512, 512 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 512, 0, 512, 512 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 512, 512, 512 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 512, 512, 512, 512 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 1024, 512, 512 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 512, 1024, 512, 512 )
+
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32, 32 )
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 80, 32 )
 
 [node name="Area2D" type="Area2D"]
 position = Vector2( 280, 328 )
@@ -21,9 +51,11 @@ script = ExtResource( 1 )
 speed = 700.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+position = Vector2( 0.000101089, -1.33514e-05 )
+scale = Vector2( 0.3125, 0.138889 )
+frames = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 8 )
 
 [node name="ScreenCheck" type="VisibilityNotifier2D" parent="."]

@@ -11,6 +11,7 @@ public class Missile : Area2D
     public override void _Ready()
     {
         GetNode<VisibilityNotifier2D>("ScreenCheck").Connect("screen_exited", this, nameof(OnExit));
+        GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
     }
 
     public override void _Process(float delta)

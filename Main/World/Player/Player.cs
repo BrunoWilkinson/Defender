@@ -62,16 +62,22 @@ public class Player : Area2D
         if (Input.IsActionPressed("move_right"))
         {
             velocity.x += 1;
+            GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
         }
         if (Input.IsActionPressed("move_left"))
         {
             velocity.x -= 1;
+            GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
         }
         Position += velocity * speed * delta;
         Position = new Vector2(
             x: Mathf.Clamp(Position.x, spriteSize, screenSize.x - spriteSize),
             y: Position.y
         );
+
+        if(Input.IsActionJustReleased("move_right") || Input.IsActionJustReleased("move_left")) {
+            GetNode<AnimatedSprite>("AnimatedSprite").Stop();
+        }
     }
 
     private void Shoot()

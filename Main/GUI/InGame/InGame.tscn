@@ -1,4 +1,11 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Main/GUI/Resources/new_dynamicfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Main/GUI/Resources/LondrinaSolid-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 2 )
 
 [node name="InGame" type="Control"]
 anchor_right = 1.0
@@ -9,10 +16,12 @@ __meta__ = {
 }
 
 [node name="HighScore" type="Label" parent="."]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 148.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.94902, 0.886275, 1 )
 text = "highscore: 69"
 uppercase = true
 __meta__ = {
@@ -22,22 +31,29 @@ __meta__ = {
 [node name="Score" type="Label" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -75.0
-margin_top = 10.0
-margin_right = -8.0
-margin_bottom = 24.0
+margin_left = -88.0
+margin_top = 8.0
+margin_right = 2.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.94902, 0.886275, 1 )
 text = "score: 69"
 uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GetReady" type="Label" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -34.0
-margin_top = -24.0
-margin_right = 35.0
-margin_bottom = 8.0
+margin_left = -78.5
+margin_top = -49.5
+margin_right = 78.5
+margin_bottom = 49.5
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.929412, 0.94902, 0.886275, 1 )
 text = "get ready
 wave# 69"
 align = 1

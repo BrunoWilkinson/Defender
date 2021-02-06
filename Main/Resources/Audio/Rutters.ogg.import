@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Rutters.ogg-21daab7558e3ffe6d553110f089d14bf.oggstr"
+
+[deps]
+
+source_file="res://Main/Resources/Audio/Rutters.ogg"
+dest_files=[ "res://.import/Rutters.ogg-21daab7558e3ffe6d553110f089d14bf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

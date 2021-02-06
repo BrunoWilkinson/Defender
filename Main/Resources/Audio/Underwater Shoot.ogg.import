@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Underwater Shoot.ogg-b99bf01e13d029b028f6263025618aac.oggstr"
+
+[deps]
+
+source_file="res://Main/Resources/Audio/Underwater Shoot.ogg"
+dest_files=[ "res://.import/Underwater Shoot.ogg-b99bf01e13d029b028f6263025618aac.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

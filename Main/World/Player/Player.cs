@@ -21,12 +21,15 @@ public class Player : Area2D
 
     private Area2D _shield;
 
+    private AudioStreamPlayer2D _shootAudio;
+
     private bool _canShoot = true;
 
     public override void _Ready()
     {
         GetNode<Timer>("FireRate").Connect("timeout", this, nameof(CanShoot));
         screenSize = GetViewport().Size;
+        _shootAudio = GetNode<AudioStreamPlayer2D>("ShootAudio");
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(Hit));
         _shield.Hide();
@@ -87,6 +90,7 @@ public class Player : Area2D
 # if DEBUG
             GD.Print("Log: Missile shoot");
 #endif
+            _shootAudio.Play();
             _canShoot = false;
             EmitSignal(nameof(OnShoot), _missile, Position);
         }

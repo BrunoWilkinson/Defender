@@ -23,6 +23,8 @@ public class Player : Area2D
 
     private AudioStreamPlayer2D _shootAudio;
 
+    private AudioStreamPlayer2D _shieldAudio;
+
     private bool _canShoot = true;
 
     public override void _Ready()
@@ -30,6 +32,7 @@ public class Player : Area2D
         GetNode<Timer>("FireRate").Connect("timeout", this, nameof(CanShoot));
         screenSize = GetViewport().Size;
         _shootAudio = GetNode<AudioStreamPlayer2D>("ShootAudio");
+        _shieldAudio = GetNode<AudioStreamPlayer2D>("ShieldAudio");
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(Hit));
         _shield.Hide();
@@ -102,11 +105,15 @@ public class Player : Area2D
         {
             _canShoot = false;
             _shield.Show();
+            if (!_shieldAudio.Playing) {
+                _shieldAudio.Playing = true;
+            }
             _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
         }
         else
         {
             _shield.Hide();
+            _shieldAudio.Playing = false;
             _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
         }
     }

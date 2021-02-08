@@ -14,10 +14,13 @@ public class Enemy : Area2D
 
     private AnimatedSprite _anim;
 
+    private AudioStreamPlayer2D _deathAudio;
+
     public override void _Ready()
     {
         Connect("area_entered", this, nameof(OnHit));
         GetNode<Timer>("FireRate").Connect("timeout", this, nameof(Shoot));
+        _deathAudio = GetNode<AudioStreamPlayer2D>("DeathAudio");
         _anim = GetNode<AnimatedSprite>("AnimatedSprite");
         _anim.Play("enemy_" + enemyVersion);
         _anim.Connect("animation_finished", this, nameof(OnAnimationFinished));
@@ -36,6 +39,7 @@ public class Enemy : Area2D
         if (area is Missile)
         {
             area.QueueFree();
+            _deathAudio.Play();
             _anim.Play("death");
             GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
             EmitSignal(nameof(OnDestroy));

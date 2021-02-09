@@ -8,6 +8,8 @@ public class Player : Area2D
 
     [Signal]
     delegate void OnHit();
+    [Signal]
+    delegate void OnGameOver();
 
     [Export]
     public float speed = 500;
@@ -21,18 +23,27 @@ public class Player : Area2D
 
     private Area2D _shield;
 
+    private AnimatedSprite _anim;
+
     private AudioStreamPlayer2D _shootAudio;
 
     private AudioStreamPlayer2D _shieldAudio;
 
+    private AudioStreamPlayer2D _deathAudio;
+
     private bool _canShoot = true;
+
+    private bool _isDead = false;
 
     public override void _Ready()
     {
         GetNode<Timer>("FireRate").Connect("timeout", this, nameof(CanShoot));
         screenSize = GetViewport().Size;
+        _anim = GetNode<AnimatedSprite>("AnimatedSprite");
+        _anim.Connect("animation_finished", this, nameof(OnAnimationFinished));
         _shootAudio = GetNode<AudioStreamPlayer2D>("ShootAudio");
         _shieldAudio = GetNode<AudioStreamPlayer2D>("ShieldAudio");
+        _deathAudio = GetNode<AudioStreamPlayer2D>("DeathAudio");
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(Hit));
         _shield.Hide();
@@ -41,9 +52,12 @@ public class Player : Area2D
 
     public override void _Process(float delta)
     {
-        Controls(delta);
-        Shoot();
-        Block();
+        if (!_isDead)
+        {
+            Controls(delta);
+            Shoot();
+            Block();
+        }
     }
 
     public void CanShoot()
@@ -51,12 +65,24 @@ public class Player : Area2D
         _canShoot = true;
     }
 
+    public void OnAnimationFinished()
+    {
+        if (_anim.Animation == "death")
+        {
+            QueueFree();
+            EmitSignal(nameof(OnGameOver));
+        }
+    }
+
     public void Hit(Area2D area)
     {
         if (area is Enemy || area is Rock)
         {
-            QueueFree();
+            PauseMode = PauseModeEnum.Process;
+            _isDead = true;
             area.QueueFree();
+            _deathAudio.Play();
+            _anim.Play("death");
             EmitSignal(nameof(OnHit));
         }
     }
@@ -68,12 +94,12 @@ public class Player : Area2D
         if (Input.IsActionPressed("move_right"))
         {
             velocity.x += 1;
-            GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
+            _anim.Play("default");
         }
         if (Input.IsActionPressed("move_left"))
         {
             velocity.x -= 1;
-            GetNode<AnimatedSprite>("AnimatedSprite").Play("default");
+            _anim.Play("default");
         }
         Position += velocity * speed * delta;
         Position = new Vector2(
@@ -81,8 +107,9 @@ public class Player : Area2D
             y: Position.y
         );
 
-        if(Input.IsActionJustReleased("move_right") || Input.IsActionJustReleased("move_left")) {
-            GetNode<AnimatedSprite>("AnimatedSprite").Stop();
+        if (Input.IsActionJustReleased("move_right") || Input.IsActionJustReleased("move_left"))
+        {
+            _anim.Stop();
         }
     }
 
@@ -90,9 +117,6 @@ public class Player : Area2D
     {
         if (Input.IsActionJustReleased("shoot") && _canShoot && !Input.IsActionPressed("block"))
         {
-# if DEBUG
-            GD.Print("Log: Missile shoot");
-#endif
             _shootAudio.Play();
             _canShoot = false;
             EmitSignal(nameof(OnShoot), _missile, Position);
@@ -105,7 +129,8 @@ public class Player : Area2D
         {
             _canShoot = false;
             _shield.Show();
-            if (!_shieldAudio.Playing) {
+            if (!_shieldAudio.Playing)
+            {
                 _shieldAudio.Playing = true;
             }
             _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;

@@ -23,7 +23,8 @@ public class World : Node2D
     public void CreateConnection()
     {
         _player.Connect("OnShoot", this, nameof(OnPlayerShoot));
-        _player.Connect("OnHit", this, nameof(GameOver));
+        _player.Connect("OnHit", this, nameof(PlayerHit));
+        _player.Connect("OnGameOver", this, nameof(GameOver));
         Node2D walls = GetNode<Node2D>("Walls");
         walls.Connect("OnRightCollision", _wave, "OnCollideRight");
         walls.Connect("OnLeftCollision", _wave, "OnCollideLeft");
@@ -48,8 +49,14 @@ public class World : Node2D
         }
     }
 
+    public void PlayerHit()
+    {
+        GetTree().Paused = true;
+    }
+
     public void GameOver()
     {
+        GetTree().Paused = false;
         EmitSignal(nameof(OnGameOver));
     }
 

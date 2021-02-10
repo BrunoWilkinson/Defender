@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main/GUI/Resources/new_dynamicfont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Main/GUI/Resources/LondrinaSolid-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Main/GUI/Resources/Button.tres" type="StyleBox" id=3]
+[ext_resource path="res://Main/Resources/Icons/speaker.svg" type="Texture" id=4]
+[ext_resource path="res://Main/Resources/Icons/speaker-off.svg" type="Texture" id=5]
+[ext_resource path="res://Main/GUI/Menu/Menu.cs" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -16,9 +19,12 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color( 0.133333, 0.164706, 0.239216, 1 )
 
+[sub_resource type="ImageTexture" id=3]
+
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -57,3 +63,26 @@ text = "New Game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SoundButton" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_top = -64.0
+texture_normal = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Speaker" type="Sprite" parent="."]
+position = Vector2( 608, 608 )
+scale = Vector2( 0.128906, 0.128906 )
+texture = ExtResource( 4 )
+
+[node name="SpeakerOff" type="Sprite" parent="."]
+visible = false
+position = Vector2( 608, 608 )
+scale = Vector2( 0.128906, 0.128906 )
+texture = ExtResource( 5 )

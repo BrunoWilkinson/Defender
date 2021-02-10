@@ -46,6 +46,7 @@ public class Player : Area2D
         _deathAudio = GetNode<AudioStreamPlayer2D>("DeathAudio");
         _shield = GetNode<Area2D>("Shield");
         Connect("area_entered", this, nameof(Hit));
+        GetNode<Area2D>("DefendLine").Connect("area_entered", this, nameof(lineHit));
         _shield.Hide();
         _shield.GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
     }
@@ -74,16 +75,31 @@ public class Player : Area2D
         }
     }
 
+    public void GameOver(Area2D area)
+    {
+        PauseMode = PauseModeEnum.Process;
+        _isDead = true;
+        area.QueueFree();
+        _deathAudio.Play();
+        _anim.Play("death");
+        EmitSignal(nameof(OnHit));
+    }
+
     public void Hit(Area2D area)
     {
         if (area is Enemy || area is Rock)
         {
-            PauseMode = PauseModeEnum.Process;
-            _isDead = true;
-            area.QueueFree();
-            _deathAudio.Play();
-            _anim.Play("death");
-            EmitSignal(nameof(OnHit));
+            GameOver(area);
+        }
+    }
+
+    public void lineHit(Area2D area)
+    {
+
+        if (area is Enemy)
+        {
+            GD.Print(area.Name);
+            GameOver(area);
         }
     }
 

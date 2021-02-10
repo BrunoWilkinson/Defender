@@ -6,7 +6,7 @@
 [node name="Wave" type="Node2D"]
 position = Vector2( 320, 208 )
 script = ExtResource( 1 )
-speed = 50.0
+speed = 100.0
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( -224, -160 )

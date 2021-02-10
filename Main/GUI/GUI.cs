@@ -33,6 +33,7 @@ public class GUI : CanvasLayer
     public static void UpdateHighScore(ulong highScore)
     {
         _inGame.GetNode<Label>("HighScore").Text = $"HighScore: {highScore}";
+        _menu.GetNode<Label>("HighScore").Text = $"HighScore: {highScore}";
     }
 
     public static void ShowGetReady(ulong score)

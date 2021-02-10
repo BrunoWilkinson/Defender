@@ -22,7 +22,9 @@ public class Main : Node
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
         CreateConnection();
+        LoadHighScore();
         GUI.UpdateScore(score);
+        GUI.UpdateHighScore(highScore);
         GUI.MenuGame();
     }
 

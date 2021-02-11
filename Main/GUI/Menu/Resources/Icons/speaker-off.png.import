@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/speaker.svg-bfafc04c420f17cee4b490b2a4cf4347.stex"
+path="res://.import/speaker-off.png-991d965c7ff17582bb96910cd4a9238e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Main/Resources/Icons/speaker.svg"
-dest_files=[ "res://.import/speaker.svg-bfafc04c420f17cee4b490b2a4cf4347.stex" ]
+source_file="res://Main/GUI/Menu/Resources/Icons/speaker-off.png"
+dest_files=[ "res://.import/speaker-off.png-991d965c7ff17582bb96910cd4a9238e.stex" ]
 
 [params]
 

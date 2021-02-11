@@ -3,19 +3,19 @@
 [ext_resource path="res://Main/GUI/Resources/new_dynamicfont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Main/GUI/Resources/LondrinaSolid-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Main/GUI/Resources/Button.tres" type="StyleBox" id=3]
-[ext_resource path="res://Main/Resources/Icons/speaker.svg" type="Texture" id=4]
-[ext_resource path="res://Main/Resources/Icons/speaker-off.svg" type="Texture" id=5]
+[ext_resource path="res://Main/GUI/Menu/Resources/Icons/speaker-off.png" type="Texture" id=4]
+[ext_resource path="res://Main/GUI/Menu/Resources/Icons/speaker.png" type="Texture" id=5]
 [ext_resource path="res://Main/GUI/Menu/Menu.cs" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 50
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.929412, 0.94902, 0.886275, 1 )
 border_width_left = 5
 border_width_top = 5
@@ -23,7 +23,7 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color( 0.133333, 0.164706, 0.239216, 1 )
 
-[sub_resource type="ImageTexture" id=3]
+[sub_resource type="ImageTexture" id=4]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -59,7 +59,7 @@ margin_left = -128.0
 margin_top = -112.0
 margin_right = 126.0
 margin_bottom = -52.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.929412, 0.94902, 0.886275, 1 )
 text = "HighScore: 69"
 uppercase = true
@@ -75,7 +75,7 @@ anchor_bottom = 0.5
 margin_left = -104.0
 margin_right = 104.0
 margin_bottom = 64.0
-custom_styles/hover = SubResource( 2 )
+custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
@@ -96,7 +96,7 @@ margin_left = -104.0
 margin_top = 128.0
 margin_right = 104.0
 margin_bottom = 192.0
-custom_styles/hover = SubResource( 2 )
+custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
@@ -113,20 +113,22 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -64.0
-margin_top = -64.0
-texture_normal = SubResource( 3 )
+margin_left = -71.0001
+margin_top = -71.0001
+margin_right = -7.00006
+margin_bottom = -7.00006
+texture_normal = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Speaker" type="Sprite" parent="."]
-position = Vector2( 608, 608 )
+position = Vector2( 601, 601 )
 scale = Vector2( 0.128906, 0.128906 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="SpeakerOff" type="Sprite" parent="."]
 visible = false
-position = Vector2( 608, 608 )
+position = Vector2( 600, 600 )
 scale = Vector2( 0.128906, 0.128906 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )

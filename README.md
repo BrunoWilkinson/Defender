@@ -13,7 +13,7 @@ Controls:
 - Right mouse click to block with shield
 Thank you for playing!
 
-GitHub:
+Itch.io:
 
 https://brunowilkinson.itch.io/defender
 

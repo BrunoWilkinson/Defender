@@ -62,6 +62,7 @@ public class World : Node2D
 
     public void WaveWon()
     {
+        GetTree().Paused = true;
         EmitSignal(nameof(OnWaveWon));
     }
 
@@ -72,11 +73,17 @@ public class World : Node2D
         missileInstance.Position = location;
     }
 
-    public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
+    public int GenerateRandomEnemy ()
     {
         Random rand = new Random();
         int enemyCount = GetNode<Node2D>("Wave").GetChildCount() - 1;
-        if (enemy.GetIndex() == rand.Next(0, enemyCount) || enemy.GetIndex() == rand.Next(0, enemyCount) || enemy.GetIndex() == rand.Next(0, enemyCount))
+        return rand.Next(0, enemyCount);
+    }
+
+    public void OnEnemyShoot(PackedScene rock, Vector2 location, Area2D enemy)
+    {
+        GenerateRandomEnemy();
+        if (enemy.GetIndex() == GenerateRandomEnemy() || enemy.GetIndex() == GenerateRandomEnemy())
         {
             Rock rockInstance = (Rock)rock.Instance();
             AddChild(rockInstance);

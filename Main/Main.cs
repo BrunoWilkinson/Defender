@@ -16,11 +16,14 @@ public class Main : Node
 
     private PackedScene _worldScene = GD.Load<PackedScene>("res://Main/World/World.tscn");
 
+    private AudioStreamPlayer _victoryAudio;
+
     public override void _Ready()
     {
         _gui = GetNode<CanvasLayer>("GUI");
         _waveTimer = GetNode<Timer>("WaveTimer");
         _waveTimer.Connect("timeout", this, nameof(UnPause));
+        _victoryAudio = GetNode<AudioStreamPlayer>("VictoryAudio");
         CreateConnection();
         LoadHighScore();
         GUI.UpdateScore(score);
@@ -45,6 +48,7 @@ public class Main : Node
         _world.Connect("OnGameOver", this, nameof(GameOver));
         _world.Connect("OnWaveWon", this, nameof(WaveWon));
         _world.Hide();
+        _victoryAudio.Play();
         GetTree().Paused = true;
     }
 
@@ -53,6 +57,7 @@ public class Main : Node
         GetTree().Paused = false;
         GUI.HideGetReady();
         _world.Show();
+        _victoryAudio.Stop();
     }
 
     public void ClearChildren()
@@ -80,9 +85,10 @@ public class Main : Node
 
     public void WaveWon()
     {
+        _world.QueueFree();
+        GetTree().Paused = false;
         score += 1;
         GUI.UpdateScore(score);
-        _world.QueueFree();
         StartGame();
     }
 

@@ -96,7 +96,7 @@ position = Vector2( -0.67041, 10.1118 )
 shape = SubResource( 12 )
 
 [node name="FireRate" type="Timer" parent="."]
-wait_time = 0.001
+wait_time = 0.5
 autostart = true
 
 [node name="ShootAudio" type="AudioStreamPlayer2D" parent="."]
